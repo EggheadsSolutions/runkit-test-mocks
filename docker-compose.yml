@@ -1,0 +1,10 @@
+version: "3"
+services:
+  php7:
+    # Создаем контейнер с "php7"
+    build: ./dev/php7
+    image: eggheads-php7
+
+    # Монтируем директорию с проектом
+    volumes:
+      - .:/var/www

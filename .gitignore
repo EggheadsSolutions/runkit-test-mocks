@@ -1,0 +1,9 @@
+# editor
+/.idea
+
+# composer
+/.composer
+/vendor
+
+# docker xdebug.log
+/dev/php7/xdebug.log
