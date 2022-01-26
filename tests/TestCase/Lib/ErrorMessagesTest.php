@@ -18,6 +18,7 @@ class ErrorMessagesTest extends TestCase
      *
      * @return void
      * @throws Exception
+     * @see ErrorMessages::getMessage()
      */
     function testGetMessage(): void
     {
