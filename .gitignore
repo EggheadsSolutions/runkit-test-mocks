@@ -1,11 +1,11 @@
 # editor
-./.idea
+.idea
 
 # composer
-./composer.lock
-./.composer
-./vendor
+composer.lock
+.composer
+vendor
 
 # docker xdebug.log
-./dev/php7/xdebug.log
-./dev/php8/xdebug.log
+dev/php7/xdebug.log
+dev/php8/xdebug.log
