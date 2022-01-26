@@ -1,14 +1,14 @@
 <?php
 declare(strict_types=1);
 
-namespace Eggheads\Mocks\Lib;
+namespace Eggheads\Mocks\Test\Lib;
 
 use LogicException;
 
 /**
  * Ошибки для разных версий php
  */
-class ErrorMessages
+class TestErrorMessages
 {
     /**
      * @type string Идентификатор PHP7

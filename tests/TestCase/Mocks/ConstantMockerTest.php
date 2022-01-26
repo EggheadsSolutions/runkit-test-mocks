@@ -3,12 +3,10 @@ declare(strict_types=1);
 
 namespace Eggheads\Mocks\Test\TestCase\Mocks;
 
-use AssertionError;
 use Eggheads\Mocks\ConstantMocker;
-use Eggheads\Mocks\Lib\ErrorMessages;
+use Eggheads\Mocks\Test\Lib\TestErrorMessages;
 use Eggheads\Mocks\Test\TestCase\Mocks\Fixture\MockTestFixture;
 use PHPUnit\Framework\AssertionFailedError;
-use PHPUnit\Framework\Error\Error;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -64,8 +62,8 @@ class ConstantMockerTest extends TestCase
      */
     public function testConstantExists(): void
     {
-        $this->expectExceptionMessage(ErrorMessages::getMessage('defined', ['constName' => 'BAD_CONST']));
-        if (!ErrorMessages::isPhp8Version()) {
+        $this->expectExceptionMessage(TestErrorMessages::getMessage('defined', ['constName' => 'BAD_CONST']));
+        if (!TestErrorMessages::isPhp8Version()) {
             $this->expectException(AssertionFailedError::class);
         }
 

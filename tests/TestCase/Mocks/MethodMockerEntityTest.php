@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace Eggheads\Mocks\Test\TestCase\Mocks;
 
-use Eggheads\Mocks\Lib\ErrorMessages;
 use Eggheads\Mocks\MethodMockerEntity;
+use Eggheads\Mocks\Test\Lib\TestErrorMessages;
 use Eggheads\Mocks\Test\TestCase\Mocks\Fixture\MockTestChildFixture;
 use Eggheads\Mocks\Test\TestCase\Mocks\Fixture\MockTestFixture;
 use PHPUnit\Framework\AssertionFailedError;
@@ -522,10 +522,10 @@ class MethodMockerEntityTest extends TestCase
         $stringParam = 'asd';
         $requiredParam = 1;
 
-        if (ErrorMessages::isPhp8Version()) {
-            $instanceOf = ErrorMessages::getMessage('type', ['typeName' => MockTestFixture::class]);
+        if (TestErrorMessages::isPhp8Version()) {
+            $instanceOf = TestErrorMessages::getMessage('type', ['typeName' => MockTestFixture::class]);
         } else {
-            $instanceOf = ErrorMessages::getMessage('instanceOf', ['typeName' => MockTestFixture::class, 'appendText' => ' ' . MockTestFixture::class]);
+            $instanceOf = TestErrorMessages::getMessage('instanceOf', ['typeName' => MockTestFixture::class, 'appendText' => ' ' . MockTestFixture::class]);
         }
 
         return [
@@ -533,7 +533,7 @@ class MethodMockerEntityTest extends TestCase
                 [
                     'params' => [true, $objParam, $arrParam, $floatParam, $stringParam],
                     'errorClass' => \ArgumentCountError::class,
-                    'errorMsg' => ErrorMessages::getMessage('arguments'),
+                    'errorMsg' => TestErrorMessages::getMessage('arguments'),
                 ],
             ],
             1 => [
@@ -547,21 +547,21 @@ class MethodMockerEntityTest extends TestCase
                 [
                     'params' => [true, $objParam, 1, $floatParam, $stringParam, $requiredParam],
                     'errorClass' => \TypeError::class,
-                    'errorMsg' => ErrorMessages::getMessage('type', ['typeName' => 'array']),
+                    'errorMsg' => TestErrorMessages::getMessage('type', ['typeName' => 'array']),
                 ],
             ],
             3 => [
                 [
                     'params' => [true, $objParam, $arrParam, [], $stringParam, $requiredParam],
                     'errorClass' => \TypeError::class,
-                    'errorMsg' => ErrorMessages::getMessage('type', ['typeName' => 'float']),
+                    'errorMsg' => TestErrorMessages::getMessage('type', ['typeName' => 'float']),
                 ],
             ],
             4 => [
                 [
                     'params' => [true, $objParam, $arrParam, $floatParam, [], $requiredParam],
                     'errorClass' => \TypeError::class,
-                    'errorMsg' => ErrorMessages::getMessage('typeCanNullable', ['typeName' => 'string']),
+                    'errorMsg' => TestErrorMessages::getMessage('typeCanNullable', ['typeName' => 'string']),
                 ],
             ],
             5 => [
@@ -651,7 +651,7 @@ class MethodMockerEntityTest extends TestCase
      */
     public function testVariadicParamType(): void
     {
-        $error = ErrorMessages::getMessage('type', ['typeName' => 'int']);
+        $error = TestErrorMessages::getMessage('type', ['typeName' => 'int']);
         $this->expectExceptionMessage($error);
         $this->expectException(\TypeError::class);
         $mock = new MethodMockerEntity('mockid', MockTestFixture::class, 'variadicParam', false, 'return get_defined_vars();');
@@ -665,7 +665,7 @@ class MethodMockerEntityTest extends TestCase
      */
     public function testReturnTypeError(): void
     {
-        $error = ErrorMessages::getMessage('type', ['typeName' => 'int', 'appendText' => ', null returned']);
+        $error = TestErrorMessages::getMessage('type', ['typeName' => 'int', 'appendText' => ', null returned']);
         $this->expectException(\TypeError::class);
         $this->expectExceptionMessage($error);
         $mock = new MethodMockerEntity('mockid', MockTestFixture::class, 'returnInt', false, 'return null;');
@@ -691,7 +691,7 @@ class MethodMockerEntityTest extends TestCase
      */
     public function testReturnTypeNullableError(): void
     {
-        $error = ErrorMessages::getMessage('typeCanNullable', ['typeName' => 'int', 'appendText' => ', array returned']);
+        $error = TestErrorMessages::getMessage('typeCanNullable', ['typeName' => 'int', 'appendText' => ', array returned']);
         $this->expectExceptionMessage($error);
         $this->expectException(\TypeError::class);
         $mock = new MethodMockerEntity('mockid', MockTestFixture::class, 'returnNullable', false, 'return [];');
