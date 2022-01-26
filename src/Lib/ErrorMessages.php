@@ -97,7 +97,7 @@ class ErrorMessages
         }
 
         if (empty($errorMessage)) {
-            throw new LogicException('Не найден раздел "'. $errorType .'" ошибок');
+            throw new LogicException('Не найден раздел "' . $errorType . '" ошибок');
         }
 
         return $errorMessage;
