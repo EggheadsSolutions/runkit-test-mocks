@@ -9,3 +9,5 @@ vendor
 # docker xdebug.log
 dev/php7/xdebug.log
 dev/php8/xdebug.log
+/composer.phar
+/.phpcs-cache
