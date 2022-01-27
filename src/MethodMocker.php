@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace Eggheads\Mocks;
 
-use Eggheads\Mocks\Error\LogicException;
+use LogicException;
 use Eggheads\Mocks\Traits\Library;
 use Exception;
 use PHPUnit\Framework\Assert;
@@ -11,8 +11,8 @@ use ReflectionMethod;
 use PHPUnit\Framework\AssertionFailedError;
 
 /**
- * Мокает метды в классах так, чтобы в основном коде не пришлось править ровным счетом ничего!
- * необходим модуль runkit
+ * Мокает методы в классах так, чтобы в основном коде не пришлось править ровным счетом ничего!
+ * Необходим модуль runkit
  */
 class MethodMocker
 {
