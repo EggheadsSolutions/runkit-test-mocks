@@ -18,7 +18,28 @@ docker-compose exec -u www-data php8 bash
 ```shell
 composer test
 ```
+----
+## Способ подключения в проект
+Заходим в тест, прописываем use и добавляем в _tearDown следующие методы:
+```php
+use Eggheads\Mocks\ConstantMocker;
+use Eggheads\Mocks\MethodMocker;
+use Eggheads\Mocks\PropertyAccess;
+```
+```php
+protected function _tearDown(): void
+{
+    ConstantMocker::restore();
+    PropertyAccess::restoreStaticAll();
 
+    try {
+        // @throws AssertionFailedError|Exception
+        MethodMocker::restore($this->hasFailed());
+    } finally {
+        // code ...
+    }
+}
+```
 ----
 # Инструкция по работе
 
