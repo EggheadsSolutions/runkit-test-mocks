@@ -9,12 +9,12 @@
     }
   ],
   "require": {
-    "php": ">=7.4"
+    "php": ">=8.0 || >=7.4"
   },
   "require-dev": {
     "ext-runkit7": "*",
     "phpunit/phpunit": "^9",
-    "eggheads/eggheads-code-style": "^1.2"
+    "eggheads/eggheads-code-style": "^2.2"
   },
   "autoload": {
     "psr-4": {
@@ -27,9 +27,13 @@
     }
   },
   "scripts": {
+    "check": [
+      "@cs-check",
+      "@phpmd-check",
+      "@phpstan-check"
+    ],
     "cs-check": "phpcs --colors -p src/ tests/",
     "cs-fix": "phpcbf --colors -p src/ tests/",
-    "test": "phpunit --colors=always",
     "phpmd-check": "vendor/bin/phpmd src/,tests/ text phpmd-ruleset.xml",
     "phpstan-check": "vendor/bin/phpstan --configuration=phpstan.neon"
   }
