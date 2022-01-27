@@ -65,7 +65,7 @@ class TestErrorMessages
      * Получить сообщение ошибки
      *
      * @param string $errorType
-     * @param array|null $options
+     * @param string[]|null $options
      * @return string
      */
     public static function getMessage(string $errorType, ?array $options = []): string
