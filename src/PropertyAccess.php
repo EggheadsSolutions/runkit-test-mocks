@@ -4,7 +4,9 @@ declare(strict_types=1);
 namespace Eggheads\Mocks;
 
 use Eggheads\Mocks\Traits\Library;
+use Exception;
 use PHPUnit\Framework\AssertionFailedError;
+use ReflectionException;
 use ReflectionProperty;
 
 /**
@@ -27,6 +29,7 @@ class PropertyAccess
      * @param string $className
      * @param string $propertyName
      * @param mixed $value
+     * @throws ReflectionException
      */
     public static function setStatic(string $className, string $propertyName, $value): void
     {
@@ -41,6 +44,7 @@ class PropertyAccess
      * @param string $className
      * @param string $propertyName
      * @param mixed $value
+     * @throws ReflectionException
      */
     public static function setStaticAndRestore(string $className, string $propertyName, $value): void
     {
@@ -82,7 +86,7 @@ class PropertyAccess
      *
      * @param string $className
      * @param string $propertyName
-     * @throws \Exception
+     * @throws Exception
      */
     public static function restoreStatic(string $className, string $propertyName): void
     {
@@ -112,6 +116,7 @@ class PropertyAccess
      * @param object $object
      * @param string $propertyName
      * @param mixed $value
+     * @throws ReflectionException
      */
     public static function set(object $object, string $propertyName, $value): void
     {
@@ -127,6 +132,7 @@ class PropertyAccess
      * @param string $className
      * @param string $propertyName
      * @return mixed
+     * @throws ReflectionException
      */
     public static function getStatic(string $className, string $propertyName)
     {
@@ -136,11 +142,12 @@ class PropertyAccess
     }
 
     /**
-     * Чтение  обычного свойства
+     * Чтение обычного свойства
      *
      * @param object $object
      * @param string $propertyName
      * @return mixed
+     * @throws ReflectionException
      */
     public static function get(object $object, string $propertyName)
     {

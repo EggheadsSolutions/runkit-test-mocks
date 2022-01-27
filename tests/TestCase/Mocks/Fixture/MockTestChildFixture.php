@@ -39,6 +39,7 @@ class MockTestChildFixture extends MockTestFixture
      * @param bool $isRedefined
      * @param string $callType
      * @return string
+     * @throws Exception
      */
     public function call(bool $callChild, bool $isStatic, bool $isRedefined, string $callType): string
     {

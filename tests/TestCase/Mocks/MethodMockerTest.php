@@ -5,6 +5,8 @@ namespace Eggheads\Mocks\Test\TestCase\Mocks;
 
 use Eggheads\Mocks\MethodMocker;
 use Eggheads\Mocks\Test\TestCase\Mocks\Fixture\MockTestFixture;
+use Exception;
+use InvalidArgumentException;
 use PHPUnit\Framework\AssertionFailedError;
 use PHPUnit\Framework\TestCase;
 
@@ -396,7 +398,7 @@ class MethodMockerTest extends TestCase
         try {
             MethodMocker::restore();
             self::fail('должен был выкинуться ексепшн');
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             self::assertStringContainsString(' - is not called!', $e->getMessage());
         }
         self::assertTrue($mock1->isRestored());
@@ -445,9 +447,9 @@ class MethodMockerTest extends TestCase
     public function testExpectException(): void
     {
         $this->expectExceptionMessage("test message");
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         MethodMocker::mock(MockTestFixture::class, 'staticFunc')
-            ->willThrowException('test message', \InvalidArgumentException::class);
+            ->willThrowException('test message', InvalidArgumentException::class);
         MockTestFixture::staticFunc();
     }
 
@@ -457,7 +459,7 @@ class MethodMockerTest extends TestCase
     public function testExpectExceptionDefault(): void
     {
         $this->expectExceptionMessage("test message default");
-        $this->expectException(\Exception::class);
+        $this->expectException(Exception::class);
         MethodMocker::mock(MockTestFixture::class, 'staticFunc')->willThrowException('test message default');
         MockTestFixture::staticFunc();
     }
@@ -539,18 +541,18 @@ class MethodMockerTest extends TestCase
         try {
             MockTestFixture::staticFunc();
             self::fail();
-        } catch (\Exception $e) {
-            self::assertInstanceOf(\Exception::class, $e);
+        } catch (Exception $e) {
+            self::assertInstanceOf(Exception::class, $e);
             self::assertEquals($message, $e->getMessage());
         }
 
         $message = 'msg2';
-        $class = \InvalidArgumentException::class;
+        $class = InvalidArgumentException::class;
         $mock->willThrowException($message, $class);
         try {
             MockTestFixture::staticFunc();
             self::fail();
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             self::assertInstanceOf($class, $e);
             self::assertEquals($message, $e->getMessage());
         }

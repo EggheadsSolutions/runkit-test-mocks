@@ -5,6 +5,7 @@ namespace Mocks;
 
 use Eggheads\Mocks\PropertyAccess;
 use Eggheads\Mocks\Test\TestCase\Mocks\Fixture\MockTestFixture;
+use Exception;
 use PHPUnit\Framework\AssertionFailedError;
 use PHPUnit\Framework\TestCase;
 
@@ -35,7 +36,7 @@ class PropertyAccessTest extends TestCase
     public function testBadProperty(): void
     {
         $this->expectExceptionMessage("does not exist");
-        $this->expectException(\Exception::class);
+        $this->expectException(Exception::class);
         PropertyAccess::setStatic(MockTestFixture::class, '_unexistent', 'asd');
     }
 

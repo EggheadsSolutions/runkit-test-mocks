@@ -7,8 +7,8 @@ use Eggheads\Mocks\Error\LogicException;
 use Eggheads\Mocks\Traits\Library;
 use Exception;
 use PHPUnit\Framework\Assert;
-use \ReflectionMethod;
-use \PHPUnit\Framework\AssertionFailedError;
+use ReflectionMethod;
+use PHPUnit\Framework\AssertionFailedError;
 
 /**
  * Мокает метды в классах так, чтобы в основном коде не пришлось править ровным счетом ничего!

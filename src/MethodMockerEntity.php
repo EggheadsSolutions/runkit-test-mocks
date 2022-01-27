@@ -3,10 +3,11 @@ declare(strict_types=1);
 
 namespace Eggheads\Mocks;
 
+use Closure;
 use Exception;
 use PHPUnit\Framework\AssertionFailedError;
 use ReflectionClass;
-use \ReflectionMethod;
+use ReflectionMethod;
 use ReflectionNamedType;
 use ReflectionParameter;
 
@@ -247,8 +248,7 @@ class MethodMockerEntity
     private function _getMethodParameters(ReflectionMethod $reflectionMethod): string
     {
         $arguments = [];
-        $parameters = (array)$reflectionMethod->getParameters();
-        /** @var ReflectionParameter $parameter */
+        $parameters = $reflectionMethod->getParameters();
         foreach ($parameters as $parameter) {
             $paramDeclaration = '$' . $parameter->getName();
             if ($parameter->isPassedByReference()) {
@@ -263,7 +263,7 @@ class MethodMockerEntity
             /** @var ReflectionNamedType $type */
             $type = $parameter->getType();
             if (!empty($type)) {
-                $paramDeclaration = (string)$type->getName() . ' ' . $paramDeclaration;
+                $paramDeclaration = $type->getName() . ' ' . $paramDeclaration;
                 if ($type->allowsNull()) {
                     $paramDeclaration = '?' . $paramDeclaration;
                 }
@@ -286,7 +286,7 @@ class MethodMockerEntity
         /** @var ReflectionNamedType $returnType */
         $returnType = $reflectionMethod->getReturnType();
         if (!empty($returnType)) {
-            $returnTypeDeclaration = ($returnType->allowsNull() ? '?' : '') . (string)$returnType->getName();
+            $returnTypeDeclaration = ($returnType->allowsNull() ? '?' : '') . $returnType->getName();
         }
         return $returnTypeDeclaration;
     }
@@ -354,6 +354,7 @@ class MethodMockerEntity
      * Ожидается вызов метода без аргументов
      *
      * @return $this
+     * @throws Exception
      */
     public function expectNoArgs(): self
     {
@@ -370,6 +371,7 @@ class MethodMockerEntity
      * @return $this
      * @phpstan-ignore-next-line
      * @SuppressWarnings(PHPMD.MethodArgs)
+     * @throws Exception
      */
     public function expectSomeArgs(array $argsSubset): self
     {
@@ -391,6 +393,7 @@ class MethodMockerEntity
      * @param array<int, mixed> $argsList Массив списков(массивов) аргументов на каждый вызов.
      *                                    Если ожидается вызов без аргументов, то вместо массива аргументов - false.
      * @return $this
+     * @throws Exception
      */
     public function expectArgsList(array $argsList): self
     {
@@ -413,6 +416,7 @@ class MethodMockerEntity
      *
      * @param mixed $var Новое значение дополнительной переменной
      * @return $this
+     * @throws Exception
      */
     public function setAdditionalVar($var): self
     {
@@ -486,6 +490,7 @@ class MethodMockerEntity
      * @param string $message
      * @param string|null $class
      * @return $this
+     * @throws Exception
      */
     public function willThrowException(string $message, ?string $class = null): self
     {
@@ -505,6 +510,7 @@ class MethodMockerEntity
      *
      * @param array<int, mixed> $valueList
      * @return $this
+     * @throws Exception
      */
     public function willReturnValueList(array $valueList): self
     {
@@ -793,7 +799,7 @@ class MethodMockerEntity
             );
         }
 
-        if (!empty($this->_action) && ($this->_action instanceof \Closure)) {
+        if (!empty($this->_action) && ($this->_action instanceof Closure)) {
             $reflectClass = new ReflectionClass($this->_class);
             $reflectParent = $reflectClass->getParentClass();
             if (!empty($reflectParent) && $reflectParent->hasMethod($this->_method)) {
@@ -802,7 +808,7 @@ class MethodMockerEntity
             }
         }
 
-        if (!is_string($this->_action) && ($this->_action !== null) && !($this->_action instanceof \Closure)) {
+        if (!is_string($this->_action) && ($this->_action !== null) && !($this->_action instanceof Closure)) {
             $this->_fail('action must be a string, a Closure or a null');
         }
     }
