@@ -20,7 +20,7 @@ class TestErrorMessagesTest extends TestCase
      * @throws Exception
      * @see TestErrorMessages::getMessage()
      */
-    function testGetMessage(): void
+    public function testGetMessage(): void
     {
         MethodMocker::mock(TestErrorMessages::class, '_getPhpVersion')
             ->willReturnValue('php7');
