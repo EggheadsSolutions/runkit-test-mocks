@@ -5,7 +5,6 @@
 ```shell
 docker-compose up -d
 ```
-
 **Перейти в контейнеры:**
 ```shell
 # Для теста php7
