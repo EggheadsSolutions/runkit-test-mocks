@@ -17,6 +17,9 @@ jobs:
       key: cache-eggheads-v1
 
     steps:
+      - uses: actions/checkout@v2
+      - uses: zhulik/redis-action@1.1.0
+
       - name: Setup cache environment
         id: extcache
         uses: shivammathur/cache-extensions@v1
@@ -38,10 +41,18 @@ jobs:
           php-version: ${{ matrix.php-versions }}
           extensions: ${{ env.extensions }}
 
+      - name: Cache Composer packages
+        id: composer-cache
+        uses: actions/cache@v2
+        with:
+          path: vendor
+          key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-php-
+
       - name: Install dependencies
         run: |
-          ls -al
-          curl -sS https://getcomposer.org/installer | php -- --install-dir=./
-          php ./composer.phar install --no-progress --prefer-dist --optimize-autoloader
+          composer install --no-progress --prefer-dist --optimize-autoloader
+
       - name: PHPUnit
         run: php -dxdebug.mode=develop vendor/bin/phpunit --colors=always
