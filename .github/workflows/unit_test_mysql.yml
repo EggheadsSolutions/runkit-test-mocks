@@ -13,7 +13,7 @@ jobs:
         php-versions: [ '7.4', '8.0' ]
 
     env:
-      extensions: bcmath, iconv, ctype, gd, mbstring, mysqli, pdo, pdo_mysql, sockets, zip, soap, intl, fileinfo, json, libxml, openssl, pcntl, posix, simplexml, zend-opcache, runkit7-3.1.0a1, igbinary, redis
+      extensions: bcmath, iconv, ctype, gd, mbstring, mysqli, pdo, pdo_mysql, sockets, zip, soap, intl, fileinfo, json, libxml, openssl, pcntl, posix, simplexml, zend-opcache, runkit7-alpha, igbinary, redis
       key: cache-eggheads-v1
 
     steps:
