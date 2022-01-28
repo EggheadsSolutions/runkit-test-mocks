@@ -1,0 +1,50 @@
+name: CI
+
+# Controls when the action will run.
+on: [ pull_request ]
+
+jobs:
+  test:
+    name: Simple unit-test
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        php-versions: [ '7.4', '8.0' ]
+
+    env:
+      extensions: bcmath, iconv, ctype, gd, mbstring, mysqli, pdo, pdo_mysql, sockets, zip, soap, intl, fileinfo, json, libxml, openssl, pcntl, posix, simplexml, zend-opcache, runkit7-3.1.0a1, igbinary, redis
+      key: cache-eggheads-v1
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: zhulik/redis-action@1.1.0
+
+      - name: Setup cache environment
+        id: extcache
+        uses: shivammathur/cache-extensions@v1
+        with:
+          php-version: ${{ matrix.php-versions }}
+          extensions: ${{ env.extensions }}
+          key: ${{ env.key }}
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-versions }}
+          extensions: ${{ env.extensions }}
+
+      - name: Cache Composer packages
+        id: composer-cache
+        uses: actions/cache@v2
+        with:
+          path: vendor
+          key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-php-
+      - name: Install dependencies
+        run: |
+          composer install --no-progress --prefer-dist --optimize-autoloader
+          composer run-script post-install-cmd --no-interaction
+      - name: PHPUnit
+        run: php -dxdebug.mode=develop vendor/bin/phpunit --colors=always -c vendor/artskills/common/src/TestSuite/phpunit.xml --exclude-group integration,clickHouse
