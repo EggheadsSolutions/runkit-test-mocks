@@ -41,6 +41,6 @@ jobs:
       - name: Install dependencies
         run: |
           curl -sS https://getcomposer.org/installer | php -- --install-dir=./
-          composer install --no-progress --prefer-dist --optimize-autoloader
+          php ./composer.phar install --no-progress --prefer-dist --optimize-autoloader
       - name: PHPUnit
         run: php -dxdebug.mode=develop vendor/bin/phpunit --colors=always
