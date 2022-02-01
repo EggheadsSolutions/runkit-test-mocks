@@ -1,0 +1,16 @@
+# editor
+.idea
+
+# composer
+composer.phar
+composer.lock
+.composer
+vendor
+
+# docker xdebug.log
+dev/php7/xdebug.log
+dev/php8/xdebug.log
+
+# phpunit
+.phpcs-cache
+.phpunit.result.cache
