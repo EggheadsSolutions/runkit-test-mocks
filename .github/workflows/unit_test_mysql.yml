@@ -17,3 +17,4 @@ jobs:
           php-version: ${{ matrix.php-versions }}
           mysql: no
           app-local-php: no
+          post-install-cmd: no
