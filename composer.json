@@ -14,7 +14,8 @@
   "require-dev": {
     "ext-runkit7": "*",
     "phpunit/phpunit": "^9",
-    "eggheads/eggheads-code-style": "^1.2"
+    "eggheads/eggheads-code-style": "^1.2",
+    "mheap/phpunit-github-actions-printer": "^1.5"
   },
   "autoload": {
     "psr-4": {
