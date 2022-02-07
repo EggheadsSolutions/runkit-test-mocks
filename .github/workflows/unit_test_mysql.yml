@@ -18,5 +18,3 @@ jobs:
           mysql: no
           app-local-php: no
           post-install-cmd: no
-
-
