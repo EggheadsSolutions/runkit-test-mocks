@@ -1,0 +1,1 @@
+extension=runkit7.so /etc/php/7.4/mods-available/runkit.ini
