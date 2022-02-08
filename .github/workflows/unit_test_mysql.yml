@@ -18,6 +18,6 @@ jobs:
           mysql: no
           redis: no
           clickhouse: no
-          public-project: yes
+          use-repository-config: no
           app-local-php: no
           post-install-cmd: no
