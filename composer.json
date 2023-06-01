@@ -5,7 +5,7 @@
   "repositories": [
     {
       "type": "vcs",
-      "url": "git://github.com/vovantune/eggheads-code-style"
+      "url": "https://gitlab.eggheads.solutions/eggheadssolutions/backend/library/eggheads-code-style.git"
     }
   ],
   "require": {
